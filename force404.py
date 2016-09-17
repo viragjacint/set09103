@@ -5,13 +5,13 @@ app = Flask(__name__)
 def root():
   return "The default, 'root' route"
 
-@app.route("/hello/")
-def hello():
-  return "Hello World!"
+app.route("/force404/")
+def force404():
+  abort(404)
 
-@app.route("/goodbye/")
-def goodbye():
-  return "Goodbye cruel word"
+@app.errorhandler(404)
+def page_not_found(error):
+  return "Couldn't find the page.", 404
 
 if __name__ == "__main__":
   app.run(host='0.0.0.0', debug=True)
